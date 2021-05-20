@@ -83,7 +83,7 @@ def save_dataset_parties(X, y, n_rows, n_cols, n_parties):
     file.close()
 
 if __name__ == "__main__":
-    N_ROWS = 50
+    N_ROWS = 80
     N_COLS = 2
     N_PARTIES = 4
 
