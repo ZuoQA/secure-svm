@@ -1,7 +1,7 @@
 import random
 
 
-sfix.set_precision(32, 64)
+sfix.set_precision(64, 128)
 
 # SGD parameters
 lr = 0.01
@@ -162,7 +162,7 @@ for row in range(n_party_2):
 for row in range(n_party_3):
     y[row + n_party_0 + n_party_1 + n_party_2][0] = sfix.get_input_from(3)
 
-W_results = fit(X, y, epochs=20)
+W_results = fit(X, y, epochs=10)
 
 print_ln("Weights:")
 show_matrix(W_results)
@@ -171,10 +171,10 @@ print_ln("Accuracy:")
 accuracy = score(X, y, W_results)
 print_ln("%s", accuracy.reveal())
 
-file_save = open("source/experiments/model_selection/secure_sgd_svm_weights.txt", "w")
+""" file_save = open("source/experiments/model_selection/secure_sgd_svm_weights.txt", "w")
 string_file = ""
 for i in range(len(W)):
     string_file += str(W[i][0].reveal())
 string_file += b.reveal()
 file_save.write(string_file)
-file_save.close()
+file_save.close() """
