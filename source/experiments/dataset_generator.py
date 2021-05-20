@@ -16,17 +16,32 @@ def generate_dataset(n_samples, n_features):
     # Extend y columns
     y = np.expand_dims(y, axis=1)
 
-    df_save = pd.DataFrame(data=np.append(X, y, axis=1))
-    df_save.to_csv("source/experiments/toy_dataset.csv", index=False, columns=None)
-
     return X, y
 
 
-def save_dataset_parties(X, y, n_rows, n_cols, n_parties):
+def split_dataset(X, y, train_percentage):
+    size_train = int(train_percentage * X.shape[0])
+
+    indices = np.random.permutation(X.shape[0])
+    training_idx, test_idx = indices[:size_train], indices[size_train:]
+    X_train, X_test = X[training_idx,:], X[test_idx,:]
+    y_train, y_test = X[training_idx,:], X[test_idx,:]
+    return X_train, X_test, y_train, y_test
+
+
+def save_dataset_csv(X, y, label):
+    df_save = pd.DataFrame(data=np.append(X, y, axis=1))
+    file_name = "toy_dataset_" + label + ".csv"
+    df_save.to_csv("source/experiments/" + file_name, index=False, columns=None)
+
+
+def save_dataset_parties(X, y, n_parties):
+    n_rows = X.shape[0]
+    n_cols = X.shape[1]
     rows_per_party = n_rows // n_parties
     last_party = 0 
     if n_rows % n_parties != 0:
-        last_party = rows_per_party + 1
+        last_party = rows_per_party + (n_rows % n_parties)
     else:
         last_party = rows_per_party
     
@@ -83,9 +98,15 @@ def save_dataset_parties(X, y, n_rows, n_cols, n_parties):
     file.close()
 
 if __name__ == "__main__":
-    N_ROWS = 50
-    N_COLS = 2
-    N_PARTIES = 4
+    n_rows = 100
+    n_cols = 2
+    n_parties = 4
+    train_percentage = 0.5
 
-    X, y = generate_dataset(N_ROWS, N_COLS)
-    save_dataset_parties(X, y, N_ROWS, N_COLS, N_PARTIES)
+    X, y = generate_dataset(n_rows, n_cols)
+    X_train, X_test, y_train, y_test = split_dataset(X, y, train_percentage)
+    save_dataset_csv(X_train, y_train, "train")
+    save_dataset_csv(X_test, y_test, "test")
+    save_dataset_csv(X, y, "complete")
+
+    save_dataset_parties(X_train, y_train, n_parties)

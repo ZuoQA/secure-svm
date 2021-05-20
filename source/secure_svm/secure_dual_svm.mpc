@@ -8,23 +8,24 @@ sfix.set_precision(32, 64)
 # SGD parameters
 C = 4
 tolerance = 1e-3
-eps = 1e-5
+eps = 1e-3
 kernel_type = "linear"
 degree = None
 
 
 # Number of parties
-n_parties = 3
+n_parties = 4
 
 
 # Number of rows for each party
-n_party_0 = 20
-n_party_1 = 25
-n_party_2 = 5
+n_party_0 = 12
+n_party_1 = 12
+n_party_2 = 12
+n_party_3 = 14
 
 
 # Data dimensions
-n_rows = n_party_0 + n_party_1 + n_party_2
+n_rows = n_party_0 + n_party_1 + n_party_2 + n_party_3
 n_columns = 2
 n_bits = math.floor(math.log2(n_rows)) + 1
 
@@ -343,6 +344,11 @@ def _(row):
     for column in range(n_columns):
         X[row + n_party_0 + n_party_1][column] = sfix.get_input_from(2)
 
+@for_range_opt(n_party_3)
+def _(row):
+    for column in range(n_columns):
+        X[row + n_party_0 + n_party_1 + n_party_2][column] = sfix.get_input_from(3)
+
 # Response vector
 y = Matrix(n_rows, 1, sfix)
 
@@ -355,6 +361,9 @@ for row in range(n_party_1):
 
 for row in range(n_party_2):
     y[row + n_party_0 + n_party_1][0] = sfix.get_input_from(2)
+
+for row in range(n_party_3):
+    y[row + n_party_0 + n_party_1 + n_party_2][0] = sfix.get_input_from(3)
 
 print_ln("X shape = %s, %s", len(X), len(X[0]))
 print_ln("y shape = %s, %s", len(y), len(y[0]))
@@ -369,4 +378,10 @@ print_ln("Accuracy:")
 accuracy = score(X, y, W, b)
 print_ln("%s", accuracy.reveal())
 
-
+file_save = open("source/experiments/model_selection/secure_dual_smo_svm_weights.txt", "w")
+string_file = ""
+for i in range(len(W)):
+    string_file += str(W[i][0].reveal())
+string_file += b.reveal()
+file_save.write(string_file)
+file_save.close()
