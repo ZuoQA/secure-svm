@@ -1,0 +1,35 @@
+* ¿Qué complejidad debe tener el conjunto de datos?
+* ¿Cual sera la naturaleza del conjunto de datos? ¿Generado artificialmente o proveniente de un probelma real?
+* ¿Cuantas filas y columnas?
+* ¿Se probarán todos los algoritmos? 
+* ¿Cuántas repeticiones por experimento? Utilizar metodo estadístico.
+----
+
+* Seleccionar el conjunto de datos
+
+----
+
+* Métricas a considerar:
+    - Accuracy
+    - Performance (running-time)
+    - Datos enviados (No tan importante) - Desempate
+    - (Metrica ocasional) Qué tamaño del anillo se está usando.
+
+PREGUNTAS:
+* ¿Cuál es el método mas apropiado para MPC+SVM?
+* ¿Es viable ejecutar MPC + SVM?
+    - Eficiente
+    - Preciso
+    - Como se compara con la ejecución en limpio
+* ¿Qué parametros de MPC son suficientes para entrenar un SVM con un conjunto de datos dado?
+
+EXPERIMENTOS:
+    Responder primera pregunta:
+        * Experimentos con datos simples para la primera pregunta. Dataset sintético y comparamos todos métodos.
+        * Como se comparan con la versión en limpio con los mismos datos sintéticos del literal anterior.
+        * Dimension X: (50, 2)
+    Para los parámetros:
+        * Cambiamos tamaño del dataset, la complejidad y la naturaleza. Comparando con la versión en limpio. Cambios a una escala fija.
+          Usamos dataset con datos sintéticos. 
+    Para la viabilidad:
+        * Usamos dataset real. Usar kernels distintos.
