@@ -1,7 +1,7 @@
 import random
 
 
-sfix.set_precision(32, 64)
+sfix.set_precision(45, 90)
 
 # SGD parameters
 lr = 0.01
@@ -33,7 +33,7 @@ def fit(X, y, epochs=100):
     W = Matrix(m + 1, 1, sfix)
     @for_range_opt(m + 1)
     def _(i):
-        W[i][0] = sfix(random.random())    # Check if this could be changed to W[i][0] = sfix(cfix.get_random()) 
+        W[i][0] = sfix.get_random(0, 1)   # Check if this could be changed to W[i][0] = sfix(cfix.get_random()) 
 
     # Here we need a classic for in order to get acces to W
     for epoch in range(epochs):
@@ -123,7 +123,7 @@ n_rows = n_party_0 + n_party_1 + n_party_2 + n_party_3
 n_columns = 2
 
 # Matrix with data
-X = Matrix(n_rows, n_columns, sfix)
+X = Matrix(n_rows, n_columns + 1, sfix)
 
 # Complete matrix data construction
 @for_range_opt(n_party_0)
@@ -145,6 +145,10 @@ def _(row):
 def _(row):
     for column in range(n_columns):
         X[row + n_party_0 + n_party_1 + n_party_2][column] = sfix.get_input_from(3)
+
+@for_range_opt(n_rows)
+def _(row):
+    X[row][len(X[0]) - 1] = 1
 
 # Response vector
 y = Matrix(n_rows, 1, sfix)

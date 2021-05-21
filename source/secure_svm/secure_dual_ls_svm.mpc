@@ -8,7 +8,7 @@ sfix.set_precision(45, 90)
 lambd = 4
 tolerance = 1e-7
 lr = 0.1
-max_iter = 200
+max_iter = 50
 kernel_type = "linear"
 degree = None
 
@@ -375,11 +375,3 @@ print_ln("----------------------")
 print_ln("Accuracy:")
 accuracy = score(X, y, X, y, alphas, b)
 print_ln("%s", accuracy.reveal())
-
-file_save = open("source/experiments/model_selection/secure_dual_ls_svm_alphas.txt", "w")
-string_file = ""
-for i in range(len(W)):
-    string_file += str(alphas[i][0].reveal())
-string_file += b.reveal()
-file_save.write(string_file)
-file_save.close()

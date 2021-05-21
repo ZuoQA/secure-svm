@@ -1,0 +1,11 @@
+Ring size = 128
+Weights:
+[1.01242]
+[0.613067]
+[0.220155]
+----------------
+Accuracy:
+0.82
+Time = 2.71739 seconds 
+Data sent = 94.5128 MB
+Global data sent = 254.597 MB

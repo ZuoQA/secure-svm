@@ -46,7 +46,7 @@ svm.fit(X, y, epochs=30, verbose=0)
 print("Fit time linear =", datetime.datetime.now() - time_a)
 training_score = svm.score(X, y)
 print("Accuracy linear =", training_score)
-
+print(svm.W)
 # print("------------------------------")
 
 # svm_ls = flp_dual_svm_ls.FlpDualLSSVM(lambd=1, lr=0.1, max_iter=50, tolerance=1e-3, kernel="linear")
@@ -100,8 +100,6 @@ print("Accuracy linear =", training_score)
 # print("Steps =", svm_dual_mix.steps)
 
 prediction = svm.predict(X)
-print(X)
-print(y)
 
 fig, axs = plt.subplots(2, 2)
 

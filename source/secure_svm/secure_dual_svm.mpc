@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 
-sfix.set_precision(32, 64)
+sfix.set_precision(45, 90)
 
 
 # SGD parameters
@@ -282,7 +282,7 @@ def fit(X, y, max_passes):
 
         return passes_alloc[0] < max_passes_alloc[0]
 
-    return W, b[0] 
+    return W, b[0], alphas 
 
 
 def predict(X, W, b):
@@ -368,20 +368,14 @@ for row in range(n_party_3):
 print_ln("X shape = %s, %s", len(X), len(X[0]))
 print_ln("y shape = %s, %s", len(y), len(y[0]))
 
-W, b = fit(X, y, max_passes=100)
+W, b, alphas = fit(X, y, max_passes=100)
 
 print_ln("Weights:")
 show_matrix(W)
+print_ln("Alphas:")
+show_matrix(alphas)
 print_ln("b = %s", b.reveal())
 
 print_ln("Accuracy:")
 accuracy = score(X, y, W, b)
 print_ln("%s", accuracy.reveal())
-
-file_save = open("source/experiments/model_selection/secure_dual_smo_svm_weights.txt", "w")
-string_file = ""
-for i in range(len(W)):
-    string_file += str(W[i][0].reveal())
-string_file += b.reveal()
-file_save.write(string_file)
-file_save.close()

@@ -15,6 +15,8 @@ class FlpSVM(object):
         ones = np.ones((X.shape[0], 1)) 
         data = np.append(X, ones, axis=1)
 
+        print(data)
+
         # Vector of weights
         self.W = np.random.random(size=(m + 1, 1))
         y_data = np.copy(y)
