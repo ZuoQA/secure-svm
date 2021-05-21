@@ -1,7 +1,7 @@
 import random
 
 
-sfix.set_precision(64, 128)
+sfix.set_precision(32, 64)
 
 # SGD parameters
 lr = 0.01

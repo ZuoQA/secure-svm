@@ -25,7 +25,7 @@ def split_dataset(X, y, train_percentage):
     indices = np.random.permutation(X.shape[0])
     training_idx, test_idx = indices[:size_train], indices[size_train:]
     X_train, X_test = X[training_idx,:], X[test_idx,:]
-    y_train, y_test = X[training_idx,:], X[test_idx,:]
+    y_train, y_test = y[training_idx,:], y[test_idx,:]
     return X_train, X_test, y_train, y_test
 
 
@@ -105,6 +105,7 @@ if __name__ == "__main__":
 
     X, y = generate_dataset(n_rows, n_cols)
     X_train, X_test, y_train, y_test = split_dataset(X, y, train_percentage)
+
     save_dataset_csv(X_train, y_train, "train")
     save_dataset_csv(X_test, y_test, "test")
     save_dataset_csv(X, y, "complete")

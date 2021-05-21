@@ -1,3 +1,4 @@
+from numpy.lib.npyio import load
 from sklearn import datasets
 import numpy as np
 import flp_svm
@@ -26,36 +27,36 @@ def generate_dataset(n_samples, n_features):
 
 def load_dataset(filename):
     df = pd.read_csv("source/datasets/" + filename)
-    X = df.iloc[:, :2]
-    y = df.iloc[:, 2]
+    X = df.iloc[:, :df.shape[1] - 1]
+    y = df.iloc[:, df.shape[1] - 1]
 
     y = np.expand_dims(y, axis=1)
 
     return X.to_numpy(), y
 
-X, y = generate_dataset(n_features=2, n_samples=500)
+X, y = load_dataset("toy_dataset_train.csv")
 
 # Print shape of dataset
 print("X shape =", X.shape)
 print("y shape =", y.shape)
 
-# svm = flp_svm.FlpSVM(C=4, lr=0.01)
-# time_a = datetime.datetime.now()
-# svm.fit(X, y, epochs=30, verbose=0)
-# print("Fit time linear =", datetime.datetime.now() - time_a)
-# training_score = svm.score(X, y)
-# print("Accuracy linear =", training_score)
-
-print("------------------------------")
-
-svm_ls = flp_dual_svm_ls.FlpDualLSSVM(lambd=1, lr=0.1, max_iter=50, tolerance=1e-3, kernel="linear")
+svm = flp_svm.FlpSVM(C=4, lr=0.01)
 time_a = datetime.datetime.now()
-svm_ls.fit(X, y)
-print("Fit time LS =", datetime.datetime.now() - time_a)
-training_score = svm_ls.score(X, y)
-print("Accuracy LS =", training_score)
-print(svm_ls.alphas)
-print("Steps =", svm_ls.steps)
+svm.fit(X, y, epochs=30, verbose=0)
+print("Fit time linear =", datetime.datetime.now() - time_a)
+training_score = svm.score(X, y)
+print("Accuracy linear =", training_score)
+
+# print("------------------------------")
+
+# svm_ls = flp_dual_svm_ls.FlpDualLSSVM(lambd=1, lr=0.1, max_iter=50, tolerance=1e-3, kernel="linear")
+# time_a = datetime.datetime.now()
+# svm_ls.fit(X, y)
+# print("Fit time LS =", datetime.datetime.now() - time_a)
+# training_score = svm_ls.score(X, y)
+# print("Accuracy LS =", training_score)
+# print(svm_ls.alphas)
+# print("Steps =", svm_ls.steps)
 
 # print("------------------------------")
 
@@ -98,21 +99,23 @@ print("Steps =", svm_ls.steps)
 # print("Accuracy dual fast =", training_score_simp)
 # print("Steps =", svm_dual_mix.steps)
 
-prediction = svm_ls.predict(X)
+prediction = svm.predict(X)
+print(X)
+print(y)
 
 fig, axs = plt.subplots(2, 2)
 
-axs[0, 0].plot(svm_ls.info["accuracy"])
-axs[0, 0].set_title("Accuracy")
+# axs[0, 0].plot(svm.info["accuracy"])
+# axs[0, 0].set_title("Accuracy")
 
-axs[0, 1].plot(svm_ls.info["pk_norm"], color='blue', lw=2)
-axs[0, 1].set_yscale("log")
-axs[0, 1].set_title("Pk norm")
+# axs[0, 1].plot(svm.info["pk_norm"], color='blue', lw=2)
+# axs[0, 1].set_yscale("log")
+# axs[0, 1].set_title("Pk norm")
 
-axs[1, 0].scatter(X[:,0], X[:,1], c=y, cmap='viridis')
-axs[1, 0].set_title("Real dataset")
+axs[0, 0].scatter(X[:,0], X[:,1], c=y, cmap='viridis')
+axs[0, 0].set_title("Real dataset")
 
-axs[1, 1].scatter(X[:,0], X[:,1], c=prediction, cmap='viridis')
-axs[1, 1].set_title("Predictions")
+axs[0, 1].scatter(X[:,0], X[:,1], c=prediction, cmap='viridis')
+axs[0, 1].set_title("Predictions")
 
 plt.show() 
