@@ -1,4 +1,4 @@
-Ring size = 128
+Ring size = 256
 Weights:
 [1.01242]
 [0.613067]

@@ -4,7 +4,7 @@ import datetime
 
 class FlpDualSVM(object):
 
-    def __init__(self, C, eps=1e-1, kernel="linear", tolerance=1e-1, degree=None) -> None:
+    def __init__(self, C=4, eps=1e-1, kernel="linear", tolerance=1e-1, degree=None) -> None:
         super().__init__()
         self.eps = eps
         self.degree = degree
@@ -226,3 +226,9 @@ class FlpDualSVM(object):
         predict = self.predict(X)
         n_correct = np.sum(predict == y_true)
         return n_correct / X.shape[0]
+
+    def load_parameters(self, alphas, b, X_train, y_train):
+        self.alphas = alphas
+        self.b = b
+        self.data = X_train
+        self.y = y_train
