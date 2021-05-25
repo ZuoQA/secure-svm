@@ -90,7 +90,7 @@ class FlpDualLSSVM(object):
             self.info["accuracy"].append(self.score(self.data, self.y))
             self.info["pk_norm"].append(np.linalg.norm(p_k))
             
-            print("||pk|| =", np.linalg.norm(p_k))
+            #print("||pk|| =", np.linalg.norm(p_k))
             if np.linalg.norm(p_k) < self.tolerance:
                 break
             

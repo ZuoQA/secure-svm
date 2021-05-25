@@ -9,8 +9,8 @@ np.random.seed(1)
 random.seed(1)
 
 
-def generate_dataset(n_samples, n_features):
-    X, y = datasets.make_classification(n_samples, n_features, n_redundant=0, n_informative=2)
+def generate_dataset(n_samples, n_features, class_sep):
+    X, y = datasets.make_classification(n_samples, n_features, n_redundant=0, n_informative=2, class_sep=class_sep)
     y = pd.Series(y).map({0: -1, 1: 1}).values
 
     # Extend y columns
@@ -102,8 +102,9 @@ if __name__ == "__main__":
     n_cols = 2
     n_parties = 4
     train_percentage = 0.5
+    class_sep = 1.0
 
-    X, y = generate_dataset(n_rows, n_cols)
+    X, y = generate_dataset(n_rows, n_cols, class_sep)
     X_train, X_test, y_train, y_test = split_dataset(X, y, train_percentage)
 
     save_dataset_csv(X_train, y_train, "train")

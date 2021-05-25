@@ -18,10 +18,10 @@ n_parties = 4
 
 
 # Number of rows for each party
-n_party_0 = 12
-n_party_1 = 12
-n_party_2 = 12
-n_party_3 = 14
+n_party_0 = 17
+n_party_1 = 17
+n_party_2 = 17
+n_party_3 = 19
 
 
 # Data dimensions

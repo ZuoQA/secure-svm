@@ -1,6 +1,8 @@
 import numpy as np
 from numpy.core.records import array
 import pandas as pd
+import datetime
+
 import flp_svm
 import flp_dual_svm_ls
 import flp_dual_svm
@@ -58,8 +60,15 @@ if __name__ == "__main__":
     X_test, y_test = load_dataset(path_test)
 
     model = load_parameters(path_parameters, algorithm, X_train, y_train)
+    print("===> Secure SVM")
     print("Train acc =", model.score(X_train, y_train))
     print("Test acc =", model.score(X_test, y_test))
 
-    
-
+    print("===> Traditional SVM")
+    time_a = datetime.datetime.now()
+    model.fit(X_train, y_train)
+    print("Fit time =", datetime.datetime.now() - time_a)
+    training_score = model.score(X_train, y_train)
+    print("Training accuracy =", training_score)
+    test_score = model.score(X_test, y_test)
+    print("Test accuracy =", training_score)

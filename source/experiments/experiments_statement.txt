@@ -31,5 +31,22 @@ EXPERIMENTOS:
     Para los parámetros:
         * Cambiamos tamaño del dataset, la complejidad y la naturaleza. Comparando con la versión en limpio. Cambios a una escala fija.
           Usamos dataset con datos sintéticos. 
+
+        Parámetros globales:
+            lambd = 4
+            tolerance = 1e-7
+            lr = 0.1
+            max_iter = 50
+            kernel_type = "linear"
+
+        Precision:
+            * En el experimento de la dificultad de los dataset, se usó sfix.set_precision(45, 90)
+            * En el experimento de cambio de filas:
+                - 40F-2C se usó sfix.set_precision(45, 90) - Ring size = 162 
+                - 50F-2C se usó sfix.set_precision(47, 92) - Ring size =  
+                - 60F-2C se usó sfix.set_precision(49, 94) - Ring size =  
+                - 70F-2C se usó sfix.set_precision(50, 95) - Ring size =  
+                - 80F-2C se usó sfix.set_precision(52, 97) -
+
     Para la viabilidad:
         * Usamos dataset real. Usar kernels distintos.
