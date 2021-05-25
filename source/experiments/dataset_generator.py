@@ -98,8 +98,8 @@ def save_dataset_parties(X, y, n_parties):
     file.close()
 
 if __name__ == "__main__":
-    n_rows = 100
-    n_cols = 2
+    n_rows = 80
+    n_cols = 6
     n_parties = 4
     train_percentage = 0.5
     class_sep = 1.0

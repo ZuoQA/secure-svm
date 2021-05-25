@@ -2,7 +2,7 @@ import numpy as np
 import math
 import mpc_math
 
-sfix.set_precision(45, 97)
+sfix.set_precision(45, 96)
 
 # SGD parameters
 lambd = 4
@@ -18,15 +18,15 @@ n_parties = 4
 
 
 # Number of rows for each party
-n_party_0 = 20
-n_party_1 = 20
-n_party_2 = 20
-n_party_3 = 20
+n_party_0 = 10
+n_party_1 = 10
+n_party_2 = 10
+n_party_3 = 10
 
 
 # Data dimensions
 n_rows = n_party_0 + n_party_1 + n_party_2 + n_party_3
-n_columns = 2
+n_columns = 4
 n_bits = math.floor(math.log2(n_rows)) + 1
 
 
