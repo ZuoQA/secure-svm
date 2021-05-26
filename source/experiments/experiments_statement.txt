@@ -48,11 +48,11 @@ EXPERIMENTOS:
                 - 70F-2C se usó sfix.set_precision(45, 95) - Ring size = 194 
                 - 80F-2C se usó sfix.set_precision(45, 97) - Ring size = 199
             * En el experimento de cambio de columnas:
-                - 40F-2C se usó sfix.set_precision(45, 90) - Ring size = 180 (OK)
-                - 40F-3C se usó sfix.set_precision(45, 93) - Ring size = 189 (OK)
-                - 40F-4C se usó sfix.set_precision(45, 96) - Ring size = 198 (OK)
-                - 40F-5C se usó sfix.set_precision(45, 98) - Ring size =  
-                - 40F-6C se usó sfix.set_precision(45, 99) - Ring size =  
+                - 40F-2C se usó sfix.set_precision(45, 90) - Ring size = 180 
+                - 40F-3C se usó sfix.set_precision(45, 93) - Ring size = 189 
+                - 40F-4C se usó sfix.set_precision(45, 96) - Ring size = 198
+                - 40F-5C se usó sfix.set_precision(45, 98) - Ring size = 203
+                - 40F-6C se usó sfix.set_precision(45, 99) - Ring size = 204
 
     Para la viabilidad:
         * Usamos dataset real. Usar kernels distintos.
