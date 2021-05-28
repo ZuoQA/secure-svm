@@ -34,11 +34,6 @@ def load_parameters(path, algorithm, X_train, y_train):
     return model
 
 
-
-def get_accuracy(X, y, params, algorithm):
-    pass
-
-
 def load_dataset(path):
     df = pd.read_csv(path)
     X = df.iloc[:, :df.shape[1] - 1]
