@@ -56,3 +56,17 @@ EXPERIMENTOS:
 
     Para la viabilidad:
         * Usamos dataset real. Usar kernels distintos.
+
+        Parámetros globales:
+            lambd = 8
+            tolerance = 1e-7
+            lr = 1e-2
+            max_iter = 80
+            kernel_type = "linear"
+
+        Los datos tienen una dimensión de:
+            n = 150
+            c = 10
+
+        Se usó una precisión de 32 bits para la parte fraccionaria, por tanto se usa
+            sfix.set_precision(32, 104)
