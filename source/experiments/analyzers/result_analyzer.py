@@ -45,10 +45,26 @@ def load_dataset(path):
 
 
 if __name__ == "__main__":
-    path_train = "source/experiments/model_selection/datasets/toy_dataset_train.csv"
-    path_test = "source/experiments/model_selection/datasets/toy_dataset_test.csv"
+    experiment_list = [
+        "test-40r-2c",
+        "test-40r-2c",
+        "test-40r-2c",
+        "test-40r-2c",
+        "test-40r-2c",
+
+        "test-50r-2c",
+        "test-60r-2c",
+        "test-70r-2c",
+        "test-80r-2c",
+    ]
+
+    experiment = "real_experiment"
+    dataset_name = "toy_dataset"
     
-    path_parameters = "source/experiments/model_selection/svm_ls_parameters.txt"
+    path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
+    path_test = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_test.csv"
+    
+    path_parameters = "source/experiments/" + experiment + "/svm_ls_parameters.txt"
     algorithm = "ls"
     
     X_train, y_train = load_dataset(path_train)

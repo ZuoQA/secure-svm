@@ -3,7 +3,7 @@ import datetime
 
 class FlpDualLSSVM(object):
 
-    def __init__(self, lambd=4, lr=1e-1, max_iter=50, kernel="linear", tolerance=1e-7, degree=None, gamma=None) -> None:
+    def __init__(self, lambd=4, lr=1e-1, max_iter=50, kernel="linear", tolerance=1e-7, degree=None, gamma=None, r=None) -> None:
         super().__init__()
         self.lr = lr
         self.degree = degree
@@ -12,6 +12,7 @@ class FlpDualLSSVM(object):
         self.kernel_type = kernel
         self.max_iter = max_iter
         self.gamma = gamma
+        self.r = r
 
     def kernel(self, a, b):
         if self.kernel_type == "linear":
@@ -20,6 +21,8 @@ class FlpDualLSSVM(object):
             return np.power(1 + a.T.dot(b)[0][0], self.degree)
         if self.kernel_type == "r":
             return np.exp(-self.gamma * np.linalg.norm(a - b) ** 2)
+        if self.kernel_type == "sigmoidal":
+            return np.tanh(self.gamma * a.T.dot(b)[0][0] + self.r)
 
     def compute_omega(self):
         omega = np.zeros(shape=(self.data.shape[0], self.data.shape[0]))
