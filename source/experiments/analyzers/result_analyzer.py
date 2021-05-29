@@ -55,7 +55,7 @@ if __name__ == "__main__":
         "test-50r-2c",
         "test-60r-2c",
         "test-70r-2c",
-        "test-80r-2c",
+        "test-80r-2c"
     ]
 
     experiment = "real_experiment"
