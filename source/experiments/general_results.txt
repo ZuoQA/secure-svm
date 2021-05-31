@@ -3,23 +3,23 @@
 Train acc = 0.775
 Test acc = 0.85
 ===> Traditional SVM
-Fit time = 0:00:00.681017
-Training accuracy = 0.8
+Fit time = 0:00:00.806362
+Training accuracy = 0.825
 Test accuracy = 0.9
 ############# test-40r-3c #############
 ===> Secure SVM
 Train acc = 0.875
 Test acc = 0.85
 ===> Traditional SVM
-Fit time = 0:00:00.721999
+Fit time = 0:00:00.723978
 Training accuracy = 0.875
-Test accuracy = 0.8
+Test accuracy = 0.825
 ############# test-40r-4c #############
 ===> Secure SVM
 Train acc = 0.95
 Test acc = 0.675
 ===> Traditional SVM
-Fit time = 0:00:00.659978
+Fit time = 0:00:00.765015
 Training accuracy = 0.9
 Test accuracy = 0.7
 ############# test-40r-5c #############
@@ -27,15 +27,15 @@ Test accuracy = 0.7
 Train acc = 0.925
 Test acc = 0.75
 ===> Traditional SVM
-Fit time = 0:00:00.701999
-Training accuracy = 0.825
-Test accuracy = 0.7
+Fit time = 0:00:00.731016
+Training accuracy = 0.875
+Test accuracy = 0.775
 ############# test-40r-6c #############
 ===> Secure SVM
 Train acc = 0.775
 Test acc = 0.775
 ===> Traditional SVM
-Fit time = 0:00:00.680993
+Fit time = 0:00:00.668768
 Training accuracy = 0.85
 Test accuracy = 0.825
 ############# test-50r-2c #############
@@ -43,38 +43,70 @@ Test accuracy = 0.825
 Train acc = 0.98
 Test acc = 0.98
 ===> Traditional SVM
-Fit time = 0:00:00.971011
-Training accuracy = 0.98
+Fit time = 0:00:01.018012
+Training accuracy = 0.96
 Test accuracy = 0.98
 ############# test-60r-2c #############
 ===> Secure SVM
 Train acc = 0.9166666666666666
 Test acc = 0.8166666666666667
 ===> Traditional SVM
-Fit time = 0:00:01.396016
-Training accuracy = 0.9166666666666666
-Test accuracy = 0.8333333333333334
+Fit time = 0:00:01.499014
+Training accuracy = 0.9333333333333333
+Test accuracy = 0.8166666666666667
 ############# test-70r-2c #############
 ===> Secure SVM
 Train acc = 0.8714285714285714
 Test acc = 0.8285714285714286
 ===> Traditional SVM
-Fit time = 0:00:01.915994
-Training accuracy = 0.8714285714285714
+Fit time = 0:00:01.941019
+Training accuracy = 0.8571428571428571
 Test accuracy = 0.8285714285714286
 ############# test-80r-2c #############
 ===> Secure SVM
 Train acc = 0.9375
 Test acc = 0.925
 ===> Traditional SVM
-Fit time = 0:00:02.622990
+Fit time = 0:00:02.486016
 Training accuracy = 0.9625
 Test accuracy = 0.9375
+############# test_class_sep_060 #############
+===> Secure SVM
+Train acc = 0.9
+Test acc = 0.98
+===> Traditional SVM
+Fit time = 0:00:01.074983
+Training accuracy = 0.9
+Test accuracy = 0.98
+############# test_class_sep_070 #############
+===> Secure SVM
+Train acc = 0.94
+Test acc = 0.98
+===> Traditional SVM
+Fit time = 0:00:01.005020
+Training accuracy = 0.92
+Test accuracy = 0.98
+############# test_class_sep_080 #############
+===> Secure SVM
+Train acc = 0.96
+Test acc = 0.98
+===> Traditional SVM
+Fit time = 0:00:01.063000
+Training accuracy = 0.96
+Test accuracy = 0.98
+############# test_class_sep_090 #############
+===> Secure SVM
+Train acc = 0.96
+Test acc = 0.98
+===> Traditional SVM
+Fit time = 0:00:01.051180
+Training accuracy = 0.96
+Test accuracy = 0.98
 ############# real_experiment #############
 ===> Secure SVM
 Train acc = 0.8490566037735849
 Test acc = 0.7692307692307693
 ===> Traditional SVM
-Fit time = 0:00:30.140995
-Training accuracy = 0.8632075471698113
-Test accuracy = 0.7912087912087912
+Fit time = 0:00:31.579976
+Training accuracy = 0.8490566037735849
+Test accuracy = 0.7802197802197802

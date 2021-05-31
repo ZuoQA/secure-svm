@@ -55,7 +55,12 @@ if __name__ == "__main__":
         "test-50r-2c",
         "test-60r-2c",
         "test-70r-2c",
-        "test-80r-2c"
+        "test-80r-2c",
+
+        "test_class_sep_060",
+        "test_class_sep_070",
+        "test_class_sep_080",
+        "test_class_sep_090",
     ]
 
     for experiment in experiment_list:
