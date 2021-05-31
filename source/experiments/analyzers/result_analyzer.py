@@ -61,7 +61,7 @@ if __name__ == "__main__":
         "test_class_sep_070",
         "test_class_sep_080",
         "test_class_sep_090",
-    ]
+    ] 
 
     for experiment in experiment_list:
         dataset_name = "toy_dataset"
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         print("Test accuracy =", test_score)
 
     # Real experiment
-    experiment = "real_experiment"
+    """ experiment = "real_experiment"
     dataset_name = "real_dataset"
         
     path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
@@ -123,4 +123,4 @@ if __name__ == "__main__":
     training_score = model.score(X_train, y_train)
     print("Training accuracy =", training_score)
     test_score = model.score(X_test, y_test)
-    print("Test accuracy =", test_score)
+    print("Test accuracy =", test_score) """

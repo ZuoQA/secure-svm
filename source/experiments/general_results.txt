@@ -1,11 +1,11 @@
 ############# test-40r-2c #############
 ===> Secure SVM
-Train acc = 0.775
-Test acc = 0.85
+Train acc = 0.825
+Test acc = 0.825    
 ===> Traditional SVM
-Fit time = 0:00:00.806362
-Training accuracy = 0.825
-Test accuracy = 0.9
+Fit time = 0:00:01.436561
+Training accuracy = 0.775
+Test accuracy = 0.925
 ############# test-40r-3c #############
 ===> Secure SVM
 Train acc = 0.875
