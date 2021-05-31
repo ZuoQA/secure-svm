@@ -3,7 +3,7 @@ import datetime
 
 class FlpDualLSSVM(object):
 
-    def __init__(self, lambd=4, lr=1e-2, max_iter=50, kernel="linear", tolerance=1e-7, degree=None) -> None:
+    def __init__(self, lambd=4, lr=0.1, max_iter=50, kernel="linear", tolerance=1e-7, degree=None) -> None:
         super().__init__()
         self.lr = lr
         self.degree = degree

@@ -47,10 +47,10 @@ def load_dataset(path):
 if __name__ == "__main__":
     experiment_list = [
         "test-40r-2c",
-        "test-40r-2c",
-        "test-40r-2c",
-        "test-40r-2c",
-        "test-40r-2c",
+        "test-40r-3c",
+        "test-40r-4c",
+        "test-40r-5c",
+        "test-40r-6c",
 
         "test-50r-2c",
         "test-60r-2c",
@@ -58,9 +58,37 @@ if __name__ == "__main__":
         "test-80r-2c"
     ]
 
+    for experiment in experiment_list:
+        dataset_name = "toy_dataset"
+        
+        path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
+        path_test = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_test.csv"
+        
+        path_parameters = "source/experiments/" + experiment + "/svm_ls_parameters.txt"
+        algorithm = "ls"
+        
+        X_train, y_train = load_dataset(path_train)
+        X_test, y_test = load_dataset(path_test)
+
+        model = load_parameters(path_parameters, algorithm, X_train, y_train)
+        print("#############", experiment, "#############")
+        print("===> Secure SVM")
+        print("Train acc =", model.score(X_train, y_train))
+        print("Test acc =", model.score(X_test, y_test))
+
+        print("===> Traditional SVM")
+        time_a = datetime.datetime.now()
+        model.fit(X_train, y_train)
+        print("Fit time =", datetime.datetime.now() - time_a)
+        training_score = model.score(X_train, y_train)
+        print("Training accuracy =", training_score)
+        test_score = model.score(X_test, y_test)
+        print("Test accuracy =", test_score)
+
+    # Real experiment
     experiment = "real_experiment"
-    dataset_name = "toy_dataset"
-    
+    dataset_name = "real_dataset"
+        
     path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
     path_test = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_test.csv"
     
@@ -71,15 +99,23 @@ if __name__ == "__main__":
     X_test, y_test = load_dataset(path_test)
 
     model = load_parameters(path_parameters, algorithm, X_train, y_train)
+    print("#############", experiment, "#############")
     print("===> Secure SVM")
     print("Train acc =", model.score(X_train, y_train))
     print("Test acc =", model.score(X_test, y_test))
 
     print("===> Traditional SVM")
+    model = flp_dual_svm_ls.FlpDualLSSVM(
+        lambd=8,
+        lr=1e-2,
+        max_iter=80,
+        kernel="linear",
+        tolerance=1e-7,
+    )
     time_a = datetime.datetime.now()
     model.fit(X_train, y_train)
     print("Fit time =", datetime.datetime.now() - time_a)
     training_score = model.score(X_train, y_train)
     print("Training accuracy =", training_score)
     test_score = model.score(X_test, y_test)
-    print("Test accuracy =", training_score)
+    print("Test accuracy =", test_score)
