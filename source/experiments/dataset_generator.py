@@ -96,19 +96,3 @@ def save_dataset_parties(X, y, n_parties):
     
     file.write(file_str)
     file.close()
-
-if __name__ == "__main__":
-    n_rows = 80
-    n_cols = 6
-    n_parties = 4
-    train_percentage = 0.5
-    class_sep = 1.0
-
-    X, y = generate_dataset(n_rows, n_cols, class_sep)
-    X_train, X_test, y_train, y_test = split_dataset(X, y, train_percentage)
-
-    save_dataset_csv(X_train, y_train, "train")
-    save_dataset_csv(X_test, y_test, "test")
-    save_dataset_csv(X, y, "complete")
-
-    save_dataset_parties(X_train, y_train, n_parties)

@@ -1,0 +1,11 @@
+{
+    "test-40-2c": {
+        "n_rows": 40,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 2,
+        "change_dataset": false
+    }
+}
