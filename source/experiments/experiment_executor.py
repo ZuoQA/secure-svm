@@ -2,65 +2,82 @@ import subprocess
 import json
 import math
 import numpy
+from scipy.sparse import data
+from sklearn.utils import _list_indexing
 
 import dataset_generator
 
 
-with open("config.json") as config_file:
+# Load information
+with open("source/experiments/config.json") as config_file:
     config = json.load(config_file)
+with open("source/experiments/experiment_info.json") as file_info:
+    data_experiments = json.load(file_info)
 
 
-def execute_experiment(experiment, n_times):
+def execute_experiment(experiment):
     first_dataset = False
-    n_first_execution = 0
-    for n_execution in range(n_times):
-        if not first_dataset or config["change_dataset"]:
+    for n_execution in range(data_experiments[experiment]["n_executions"]):
+        if not first_dataset or data_experiments[experiment]["change_dataset"]:
             generate_dataset_experiment(experiment, n_execution)
             first_dataset = True
-            n_first_execution = n_execution
 
-        # Experiment subprocess
-        if not config["change_dataset"]:
-            command = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + config["sec_execution_command"]
-            result = subprocess.run([command], stdout=subprocess.PIPE)
-            result_str = result.stdout.decode('utf-8')
-            save_experiment_output(experiment, result_str, n_first_execution)
-        else:
-            command = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + config["sec_execution_command"]
-            result = subprocess.run([command], stdout=subprocess.PIPE)
-            result_str = result.stdout.decode('utf-8')
-            save_experiment_output(experiment, result_str, n_execution)
+        cd_command = "cd " + config["experiments_path"] + experiment + "/" + config["mp_spdz_path"]
+        command = cd_command + " && " + config["sec_execution_command"]
+        result = subprocess.run([command], stdout=subprocess.PIPE, shell=True)
+
+        result.check_returncode()
+
+        result_str = result.stdout.decode('utf-8')
+        save_experiment_output(experiment, result_str, n_execution)
+
 
 
 def save_experiment_output(experiment, output, n_execution):
-    pass
+    file_name = "ouput_secure_" + str(n_execution) + ".txt"
+    path = config["experiments_path"] + experiment + "/"
+    file_output = open(path + file_name, "w")
+    file_output.write(output)
+    file_output.close()
 
 
 def generate_dataset_experiment(experiment, n_execution):
-    with open("experiment_info.json") as file_info:
-        data_experiments = json.load(file_info)
-
     X, y = dataset_generator.generate_dataset(
         math.ceil(data_experiments[experiment]["n_rows"] / data_experiments[experiment]["train_percentage"]), 
-        data_experiments[experiment]["n_cols"], 
+        data_experiments[experiment]["n_columns"], 
         data_experiments[experiment]["class_sep"]
     )
 
     X_train, X_test, y_train, y_test = dataset_generator.split_dataset(X, y, data_experiments[experiment]["train_percentage"])
 
-    # TODO Vinculate the experiment and the execution numbers into the file names
-    dataset_generator.save_dataset_csv(X_train, y_train, "train")
-    dataset_generator.save_dataset_csv(X_test, y_test, "test")
-    dataset_generator.save_dataset_csv(X, y, "complete")
+    dataset_generator.save_dataset_csv(X_train, y_train, experiment, n_execution, "train")
+    dataset_generator.save_dataset_csv(X_test, y_test, experiment, n_execution, "test")
+    dataset_generator.save_dataset_csv(X, y, experiment, n_execution, "complete")
 
-    dataset_generator.save_dataset_parties(X_train, y_train, data_experiments[experiment]["n_parties"])
+    dataset_generator.save_dataset_parties(X_train, y_train, data_experiments[experiment]["n_parties"], experiment)
 
 
 if __name__ == "__main__":
-    
-    n_times = 10
     experiment_list = [
-        "test-20r-2c"
+        "test-40r-2c",
+        "test-50r-2c",
+        # "test-60r-2c",
+        # "test-70r-2c",
+        # "test-80r-2c",
+        # "test-90r-2c",
+
+        # "test-100r-2c",
+        # "test-100r-3c",
+        # "test-100r-4c",
+        # "test-100r-5c",
+        # "test-100r-6c",
+        # "test-100r-7c",
+        # "test-100r-8c",
+        # "test-100r-9c",
+        # "test-100r-10c"
     ]
+
+    for experiment in experiment_list:
+        execute_experiment(experiment)
 
     

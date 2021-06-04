@@ -1,5 +1,7 @@
 {
     "experiments_path": "source/experiments/",
-    "mp_spdz_path": "mp-spdz/",
-    "sec_execution_command": "/Scripts/rep4-ring.sh svm_dual_ls_svm"
+    "datasets_path": "source/experiments/datasets",
+    "mp_spdz_path": "MP-SPDZ/",
+    "sec_execution_command": "Scripts/rep4-ring.sh secure_dual_ls_svm",
+    "compile_command": "make clean && make -j8 rep4-ring-party.x"
 }

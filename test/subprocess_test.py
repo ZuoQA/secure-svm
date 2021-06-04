@@ -1,4 +1,4 @@
 import subprocess
 
-result = subprocess.run(['dir'], stdout=subprocess.PIPE, shell=True)
-print(result.stdout.decode('latin1'))
+result = subprocess.run(['ls'], stdout=subprocess.PIPE, shell=True)
+print(result.stdout.decode('utf-8'))

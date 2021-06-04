@@ -40,19 +40,26 @@ EXPERIMENTOS:
             kernel_type = "linear"
 
         Precision:
-            * En el experimento de la dificultad de los dataset, se usó sfix.set_precision(45, 90)
+            * En el experimento de la dificultad de los dataset, se usó sfix.set_precision(16, 90)
+                Dimension X: (100, 2)  
             * En el experimento de cambio de filas:
-                - 40F-2C se usó sfix.set_precision(45, 90) - Ring size = 180 
-                - 50F-2C se usó sfix.set_precision(45, 92) - Ring size = 188 
-                - 60F-2C se usó sfix.set_precision(45, 94) - Ring size = 193 
-                - 70F-2C se usó sfix.set_precision(45, 95) - Ring size = 194 
-                - 80F-2C se usó sfix.set_precision(45, 97) - Ring size = 199
+                - 40F-2C se usó sfix.set_precision(20, 65) - Ring size = 144
+                - 50F-2C se usó sfix.set_precision(20, 67) - Ring size = 149
+                - 60F-2C se usó sfix.set_precision(20, ) - Ring size =  
+                - 70F-2C se usó sfix.set_precision(20, ) - Ring size =  
+                - 80F-2C se usó sfix.set_precision(20, ) - Ring size = 
+                - 90F-2C se usó sfix.set_precision(20, ) - Ring size =  
+                - 100F-2C se usó sfix.set_precision(20, ) - Ring size = 
             * En el experimento de cambio de columnas:
-                - 40F-2C se usó sfix.set_precision(45, 90) - Ring size = 180 
-                - 40F-3C se usó sfix.set_precision(45, 93) - Ring size = 189 
-                - 40F-4C se usó sfix.set_precision(45, 96) - Ring size = 198
-                - 40F-5C se usó sfix.set_precision(45, 98) - Ring size = 203
-                - 40F-6C se usó sfix.set_precision(45, 99) - Ring size = 204
+                - 100F-2C se usó sfix.set_precision(20, ) - Ring size =  
+                - 100F-3C se usó sfix.set_precision(20, ) - Ring size =  
+                - 100F-4C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-5C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-6C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-7C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-8C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-9C se usó sfix.set_precision(20, ) - Ring size = 
+                - 100F-10C se usó sfix.set_precision(20, 84) - Ring size = 193
 
     Para la viabilidad:
         * Usamos dataset real. Usar kernels distintos.

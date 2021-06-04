@@ -2,11 +2,20 @@ from sklearn import datasets
 import numpy as np
 import pandas as pd
 import random
+import json
+import math
 
 
 # Set seeds for RNGs
 np.random.seed(1)
 random.seed(1)
+
+
+# Load information
+with open("source/experiments/config.json") as config_file:
+    config = json.load(config_file)
+with open("source/experiments/experiment_info.json") as file_info:
+    data_experiments = json.load(file_info)
 
 
 def generate_dataset(n_samples, n_features, class_sep):
@@ -29,13 +38,13 @@ def split_dataset(X, y, train_percentage):
     return X_train, X_test, y_train, y_test
 
 
-def save_dataset_csv(X, y, label):
+def save_dataset_csv(X, y, experiment, n_execution, label):
     df_save = pd.DataFrame(data=np.append(X, y, axis=1))
-    file_name = "toy_dataset_" + label + ".csv"
-    df_save.to_csv("source/experiments/" + file_name, index=False, columns=None)
+    file_name = "toy_dataset_" + label + "_" + str(n_execution) + ".csv"
+    df_save.to_csv(config["experiments_path"] + experiment + "/datasets/" + file_name, index=False, columns=None)
 
 
-def save_dataset_parties(X, y, n_parties):
+def save_dataset_parties(X, y, n_parties, experiment):
     n_rows = X.shape[0]
     n_cols = X.shape[1]
     rows_per_party = n_rows // n_parties
@@ -66,7 +75,7 @@ def save_dataset_parties(X, y, n_parties):
     party_info_y.append(party_y_rows)
 
     for i in range(n_parties - 1):
-        file_name = "source/experiments/Input-P" + str(i) + "-0"
+        file_name = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + "Player-Data/Input-P" + str(i) + "-0"
         file = open(file_name, "w")
         file_str = ""
         for j in range(rows_per_party):
@@ -82,7 +91,7 @@ def save_dataset_parties(X, y, n_parties):
         file.close()
     
     # Last party write
-    file_name = "source/experiments/Input-P" + str(n_parties - 1) + "-0"
+    file_name = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + "Player-Data/Input-P" + str(n_parties - 1) + "-0"
     file = open(file_name, "w")
     file_str = ""
     for j in range(last_party):
@@ -96,3 +105,22 @@ def save_dataset_parties(X, y, n_parties):
     
     file.write(file_str)
     file.close()
+
+
+""" if __name__ == "__main__":
+    experiment = "test-100r-10c"
+    n_execution = 0
+    X, y = generate_dataset(
+        math.ceil(data_experiments[experiment]["n_rows"] / data_experiments[experiment]["train_percentage"]), 
+        data_experiments[experiment]["n_columns"], 
+        data_experiments[experiment]["class_sep"]
+    )
+
+    X_train, X_test, y_train, y_test = split_dataset(X, y, data_experiments[experiment]["train_percentage"])
+
+    # TODO Vinculate the experiment and the execution numbers into the file names
+    save_dataset_csv(X_train, y_train, experiment, n_execution, "train")
+    save_dataset_csv(X_test, y_test, experiment, n_execution, "test")
+    save_dataset_csv(X, y, experiment, n_execution, "complete")
+
+    save_dataset_parties(X_train, y_train, data_experiments[experiment]["n_parties"], experiment) """
