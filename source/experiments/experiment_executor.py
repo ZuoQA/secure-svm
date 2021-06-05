@@ -16,7 +16,7 @@ with open("source/experiments/experiment_info.json") as file_info:
 
 
 def execute_experiment(experiment): 
-    print("======================> RUNNING EXPRIMENT", experiment, "<======================")
+    print("==========================> RUNNING EXPRIMENT", experiment, "<==========================")
     compile_library(experiment)
     compile_bytecode(experiment)
 

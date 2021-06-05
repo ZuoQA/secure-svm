@@ -2,7 +2,7 @@ import numpy as np
 import math
 import mpc_math
 
-sfix.set_precision(20, 74)
+sfix.set_precision(20, 88)
 
 # SGD parameters
 lambd = 4
@@ -26,7 +26,7 @@ n_party_3 = 25
 
 # Data dimensions
 n_rows = n_party_0 + n_party_1 + n_party_2 + n_party_3
-n_columns = 2
+n_columns = 10
 n_bits = math.floor(math.log2(n_rows)) + 1
 
 
@@ -236,13 +236,13 @@ def fit(X, y):
             beta_k[i][0] = beta_k_new[i][0]
 
         iterations[0] += 1
-        # print_ln("Iteration %s ==> rk = %s / %s = %s  --  ||pk|| = %s", 
-        #    iterations[0],
-        #    (l2_norm(p_k) ** 2).reveal(),
-        #    (p_k_transp_opt_mat * p_k)[0][0].reveal(),
-        #    r_k.reveal(), 
-        #    l2_norm(p_k).reveal()
-        # )
+        print_ln("Iteration %s ==> rk = %s / %s = %s  --  ||pk|| = %s", 
+           iterations[0],
+           (l2_norm(p_k) ** 2).reveal(),
+           (p_k_transp_opt_mat * p_k)[0][0].reveal(),
+           r_k.reveal(), 
+           l2_norm(p_k).reveal()
+        )
         
         # To continue the loop the norm of p_k must be greather than the tolerance and the iterations must be less than max_iter
         continue_loop[0] = (l2_norm(p_k) >= tolerance).reveal() * (iterations[0] < max_iter)
