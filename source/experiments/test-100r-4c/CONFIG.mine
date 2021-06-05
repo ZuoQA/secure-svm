@@ -1,0 +1,5 @@
+MOD = -DRING_SIZE=183
+
+MY_CFLAGS += -I./local/include
+MY_LDLIBS += -Wl,-rpath -Wl,./local/lib -L./local/lib
+ARCH = -march=native

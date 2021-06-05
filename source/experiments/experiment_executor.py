@@ -16,6 +16,7 @@ with open("source/experiments/experiment_info.json") as file_info:
 
 
 def execute_experiment(experiment): 
+    print("======================> RUNNING EXPRIMENT", experiment, "<======================")
     compile_library(experiment)
     compile_bytecode(experiment)
 
@@ -87,21 +88,26 @@ def generate_dataset_experiment(experiment, n_execution):
 if __name__ == "__main__":
     experiment_list = [
         "test-40r-2c",
-        # "test-50r-2c",
-        # "test-60r-2c",
-        # "test-70r-2c",
-        # "test-80r-2c",
-        # "test-90r-2c",
+        "test-50r-2c",
+        "test-60r-2c",
+        "test-70r-2c",
+        "test-80r-2c",
+        "test-90r-2c",
 
-        # "test-100r-2c",
-        # "test-100r-3c",
-        # "test-100r-4c",
-        # "test-100r-5c",
-        # "test-100r-6c",
-        # "test-100r-7c",
-        # "test-100r-8c",
-        # "test-100r-9c",
-        # "test-100r-10c"
+        "test-100r-2c",
+        "test-100r-3c",
+        "test-100r-4c",
+        "test-100r-5c",
+        "test-100r-6c",
+        "test-100r-7c",
+        "test-100r-8c",
+        "test-100r-9c",
+        "test-100r-10c",
+
+        "test_class_sep_060",
+        "test_class_sep_070",
+        "test_class_sep_080",
+        "test_class_sep_090"
     ]
 
     for experiment in experiment_list:

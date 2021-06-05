@@ -5,8 +5,206 @@
         "class_sep": 1.0,
         "train_percentage": 0.5,
         "n_parties": 4,
-        "n_executions": 2,
+        "n_executions": 3,
         "change_dataset": false,
         "ring_size": 144
+    },
+
+    "test-50r-2c": {
+        "n_rows": 50,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 149
+    },
+
+    "test-60r-2c": {
+        "n_rows": 60,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 154
+    },
+
+    "test-70r-2c": {
+        "n_rows": 70,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 158
+    },
+
+    "test-80r-2c": {
+        "n_rows": 80,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 163
+    },
+
+    "test-90r-2c": {
+        "n_rows": 90,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 164
+    },
+
+    "test-100r-2c": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 168
+    },
+
+    "test-100r-3c": {
+        "n_rows": 100,
+        "n_columns": 3,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 178
+    },
+
+    "test-100r-4c": {
+        "n_rows": 100,
+        "n_columns": 4,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 183
+    },
+
+    "test-100r-5c": {
+        "n_rows": 100,
+        "n_columns": 5,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 188
+    },
+
+    "test-100r-6c": {
+        "n_rows": 100,
+        "n_columns": 6,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 193
+    },
+
+    "test-100r-7c": {
+        "n_rows": 100,
+        "n_columns": 7,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 194
+    },
+
+    "test-100r-8c": {
+        "n_rows": 100,
+        "n_columns": 8,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 198
+    },
+
+    "test-100r-9c": {
+        "n_rows": 100,
+        "n_columns": 9,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 199
+    },
+
+    "test-100r-10c": {
+        "n_rows": 100,
+        "n_columns": 10,
+        "class_sep": 1.0,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 3,
+        "change_dataset": false,
+        "ring_size": 203
+    },
+
+    "test_class_sep_060": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.6,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_070": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.7,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_080": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.8,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_090": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.9,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
     }
 }
