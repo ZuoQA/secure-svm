@@ -6,26 +6,7 @@
         "train_percentage": 0.5,
         "n_parties": 4,
         "n_executions": 2,
-        "change_dataset": false
-    },
-
-    "test-50r-2c": {
-        "n_rows": 50,
-        "n_columns": 2,
-        "class_sep": 1.0,
-        "train_percentage": 0.5,
-        "n_parties": 4,
-        "n_executions": 2,
-        "change_dataset": true
-    },
-
-    "test-100r-10c": {
-        "n_rows": 100,
-        "n_columns": 10,
-        "class_sep": 1.0,
-        "train_percentage": 0.5,
-        "n_parties": 4,
-        "n_executions": 1,
-        "change_dataset": true
+        "change_dataset": false,
+        "ring_size": 144
     }
 }

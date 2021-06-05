@@ -75,7 +75,7 @@ def save_dataset_parties(X, y, n_parties, experiment):
     party_info_y.append(party_y_rows)
 
     for i in range(n_parties - 1):
-        file_name = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + "Player-Data/Input-P" + str(i) + "-0"
+        file_name = config["mp_spdz_path"] + "Player-Data/Input-P" + str(i) + "-0"
         file = open(file_name, "w")
         file_str = ""
         for j in range(rows_per_party):
@@ -91,7 +91,7 @@ def save_dataset_parties(X, y, n_parties, experiment):
         file.close()
     
     # Last party write
-    file_name = config["experiments_path"] + experiment + "/" + config["mp_spdz_path"] + "Player-Data/Input-P" + str(n_parties - 1) + "-0"
+    file_name = config["mp_spdz_path"] + "Player-Data/Input-P" + str(n_parties - 1) + "-0"
     file = open(file_name, "w")
     file_str = ""
     for j in range(last_party):
