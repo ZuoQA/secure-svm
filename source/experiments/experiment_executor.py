@@ -50,7 +50,7 @@ def compile_library(experiment):
 
 def compile_bytecode(experiment):
     # cd MP-SPDZ ./compile.py -R 144 secure_dual_ls_svm
-    copy_command = "cp -rf " + config["experiments_path"] + experiment + "/secure_dual_ls_svm.mpc " + config["mp_spdz_path"] + "/Programs/Source/secure_dual_ls_svm.mpc"
+    copy_command = "cp -rf " + config["experiments_path"] + experiment + "/secure_dual_ls_svm.mpc " + config["mp_spdz_path"] + "Programs/Source/secure_dual_ls_svm.mpc"
     print("Running:", copy_command)
     result = subprocess.run([copy_command], stdout=subprocess.PIPE, shell=True)
     result.check_returncode()
@@ -87,22 +87,22 @@ def generate_dataset_experiment(experiment, n_execution):
 
 if __name__ == "__main__":
     experiment_list = [
-        "test-40r-2c",
-        "test-50r-2c",
-        "test-60r-2c",
-        "test-70r-2c",
-        "test-80r-2c",
-        "test-90r-2c",
+        # "test-40r-2c",
+        # "test-50r-2c",
+        # "test-60r-2c",
+        # "test-70r-2c",
+        # "test-80r-2c",
+        # "test-90r-2c",
 
-        "test-100r-2c",
-        "test-100r-3c",
-        "test-100r-4c",
-        "test-100r-5c",
-        "test-100r-6c",
-        "test-100r-7c",
-        "test-100r-8c",
-        "test-100r-9c",
-        "test-100r-10c",
+        # "test-100r-2c",
+        # "test-100r-3c",
+        # "test-100r-4c",
+        # "test-100r-5c",
+        # "test-100r-6c",
+        # "test-100r-7c",
+        # "test-100r-8c",
+        # "test-100r-9c",
+        # "test-100r-10c",
 
         "test_class_sep_060",
         "test_class_sep_070",

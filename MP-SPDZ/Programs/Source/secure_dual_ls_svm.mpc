@@ -2,11 +2,11 @@ import numpy as np
 import math
 import mpc_math
 
-sfix.set_precision(20, 88)
+sfix.set_precision(20, 74)
 
 # SGD parameters
 lambd = 4
-tolerance = 1e-7
+tolerance = 1e-4
 lr = 0.1
 max_iter = 50
 kernel_type = "linear"
@@ -26,7 +26,7 @@ n_party_3 = 25
 
 # Data dimensions
 n_rows = n_party_0 + n_party_1 + n_party_2 + n_party_3
-n_columns = 10
+n_columns = 2
 n_bits = math.floor(math.log2(n_rows)) + 1
 
 
@@ -155,7 +155,7 @@ def l2_norm(a):
     def _(i):
         norm[0] += (a[i][0]) * (a[i][0]) 
     
-    return mpc_math.sqrt(norm[0])
+    return norm[0]
 
 
 def l2_norm_squared(a):
@@ -368,6 +368,7 @@ print_ln("--")
 alphas, b = fit(X, y)
 # print_ln("--")
 # print_ln("Alphas:")
+print_ln("--")
 show_matrix(alphas)
 print_ln("[%s]", b.reveal())
 print_ln("--")

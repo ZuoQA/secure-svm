@@ -3,7 +3,7 @@ import datetime
 
 class FlpDualLSSVM(object):
 
-    def __init__(self, lambd=4, lr=0.1, max_iter=50, kernel="linear", tolerance=1e-7, degree=None) -> None:
+    def __init__(self, lambd, lr=1e-2, max_iter=50, kernel="linear", tolerance=1e-7, degree=None) -> None:
         super().__init__()
         self.lr = lr
         self.degree = degree
@@ -90,8 +90,8 @@ class FlpDualLSSVM(object):
             self.info["accuracy"].append(self.score(self.data, self.y))
             self.info["pk_norm"].append(np.linalg.norm(p_k))
             
-            #print("||pk|| =", np.linalg.norm(p_k))
-            if np.linalg.norm(p_k) < self.tolerance:
+            print("||pk|| =", np.linalg.norm(p_k))
+            if np.linalg.norm(p_k) ** 2 < self.tolerance:
                 break
             
             self.steps += 1
@@ -105,9 +105,3 @@ class FlpDualLSSVM(object):
         predict = self.predict(X)
         n_correct = np.sum(predict == y_true)
         return n_correct / X.shape[0]
-
-    def load_parameters(self, alphas, b, X_train, y_train):
-        self.alphas = alphas
-        self.b = b
-        self.data = X_train
-        self.y = y_train

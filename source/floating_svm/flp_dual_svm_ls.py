@@ -91,7 +91,7 @@ class FlpDualLSSVM(object):
             self.info["pk_norm"].append(np.linalg.norm(p_k))
             
             print("||pk|| =", np.linalg.norm(p_k))
-            if np.linalg.norm(p_k) < self.tolerance:
+            if np.linalg.norm(p_k) ** 2 < self.tolerance:
                 break
             
             self.steps += 1

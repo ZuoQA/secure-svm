@@ -6,7 +6,7 @@ sfix.set_precision(20, 80)
 
 # SGD parameters
 lambd = 4
-tolerance = 1e-7
+tolerance = 1e-4
 lr = 0.1
 max_iter = 50
 kernel_type = "linear"
@@ -155,7 +155,7 @@ def l2_norm(a):
     def _(i):
         norm[0] += (a[i][0]) * (a[i][0]) 
     
-    return mpc_math.sqrt(norm[0])
+    return norm[0]
 
 
 def l2_norm_squared(a):

@@ -46,21 +46,21 @@ def load_dataset(path):
 
 if __name__ == "__main__":
     experiment_list = [
-        "test-40r-2c",
-        "test-40r-3c",
-        "test-40r-4c",
-        "test-40r-5c",
-        "test-40r-6c",
+        # "test-40r-2c",
+        # "test-40r-3c",
+        # "test-40r-4c",
+        # "test-40r-5c",
+        # "test-40r-6c",
 
         "test-50r-2c",
-        "test-60r-2c",
-        "test-70r-2c",
-        "test-80r-2c",
+        # "test-60r-2c",
+        # "test-70r-2c",
+        # "test-80r-2c",
 
-        "test_class_sep_060",
-        "test_class_sep_070",
-        "test_class_sep_080",
-        "test_class_sep_090",
+        # "test_class_sep_060",
+        # "test_class_sep_070",
+        # "test_class_sep_080",
+        # "test_class_sep_090",
     ] 
 
     for experiment in experiment_list:
