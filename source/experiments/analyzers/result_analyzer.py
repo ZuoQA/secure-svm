@@ -1,17 +1,24 @@
+from os import path, sep
 import numpy as np
 from numpy.core.records import array
 import pandas as pd
 import datetime
+import json
 
 import flp_svm
 import flp_dual_svm_ls
 import flp_dual_svm
 
 
-def load_parameters(path, algorithm, X_train, y_train):
-    params_file = open(path, "r")
+with open("source/experiments/config.json") as config_file:
+    config = json.load(config_file)
+with open("source/experiments/experiment_info.json") as file_info:
+    data_experiments = json.load(file_info)
+
+
+def load_parameters(parameters, algorithm, X_train, y_train):
     params_list = list()
-    for line in params_file.readlines():
+    for line in parameters.split("\n"):
         param_data = float(line.strip("\n").strip("[").strip("]"))
         params_list.append([param_data])
 
@@ -44,54 +51,172 @@ def load_dataset(path):
     return X.to_numpy(), y
 
 
+def get_parameters(path_parameters):
+    file_parameters = open(path_parameters, "r")
+    file_content = file_parameters.read()
+    file_parts = file_content.split("--\n")
+
+    parameters = file_parts[2]
+    parameters = parameters.strip("\n").strip(" ")
+
+    file_parameters.close()
+    return parameters
+    
+
+
+def get_execution_info(path_parameters):
+    file_parameters = open(path_parameters, "r")
+    file_content = file_parameters.read()
+    file_parts = file_content.split("--\n")
+    execution_info_part = file_parts[3]
+
+    execution_info_splitted = execution_info_part.split("\n")
+    time = float(execution_info_splitted[0].lstrip("Time = ").rstrip(" seconds"))
+    data = float(execution_info_splitted[1].lstrip("Data sent = ").rstrip(" MB"))
+    global_data = float(execution_info_splitted[2].lstrip("Global data sent = ").rstrip(" MB"))
+    
+    file_parameters.close()
+    return time, data, global_data
+
+
 if __name__ == "__main__":
     experiment_list = [
-        # "test-40r-2c",
-        # "test-40r-3c",
-        # "test-40r-4c",
-        # "test-40r-5c",
-        # "test-40r-6c",
-
+        "test-40r-2c",
         "test-50r-2c",
-        # "test-60r-2c",
-        # "test-70r-2c",
-        # "test-80r-2c",
+        "test-60r-2c",
+        "test-70r-2c",
+        "test-80r-2c",
+        "test-90r-2c",
 
-        # "test_class_sep_060",
-        # "test_class_sep_070",
-        # "test_class_sep_080",
-        # "test_class_sep_090",
-    ] 
+        "test-100r-2c",
+        "test-100r-3c",
+        "test-100r-4c",
+        "test-100r-5c",
+        "test-100r-6c",
+        "test-100r-7c",
+        "test-100r-8c",
+        "test-100r-9c",
+        "test-100r-10c",
 
+        "test_class_sep_060",
+        "test_class_sep_070",
+        "test_class_sep_080",
+        "test_class_sep_090"
+    ]
+
+    algorithm = "ls"
+
+    result_data = []
     for experiment in experiment_list:
-        dataset_name = "toy_dataset"
-        
-        path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
-        path_test = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_test.csv"
-        
-        path_parameters = "source/experiments/" + experiment + "/svm_ls_parameters.txt"
-        algorithm = "ls"
-        
-        X_train, y_train = load_dataset(path_train)
-        X_test, y_test = load_dataset(path_test)
+        first_dataset = False
+        experiment_results = [
+            data_experiments[experiment]["n_rows"],
+            data_experiments[experiment]["n_columns"],
+            data_experiments[experiment]["class_sep"]
+        ]
 
-        model = load_parameters(path_parameters, algorithm, X_train, y_train)
-        print("#############", experiment, "#############")
-        print("===> Secure SVM")
-        print("Train acc =", model.score(X_train, y_train))
-        print("Test acc =", model.score(X_test, y_test))
+        for n_execution in range(data_experiments[experiment]["n_executions"]):
+            if not first_dataset or data_experiments[experiment]["change_dataset"]:
+                dataset_name = "toy_dataset"
+                path_train = config["experiments_path"] + experiment + "/datasets/" + dataset_name + "_train_" + str(n_execution) + ".csv"
+                path_test = config["experiments_path"] + experiment + "/datasets/" + dataset_name + "_test_" + str(n_execution) + ".csv"
+                first_dataset = True
+            
+            path_parameters = config["experiments_path"] + experiment + "/ouput_secure_" + str(n_execution) + ".txt"
+            
+            X_train, y_train = load_dataset(path_train)
+            X_test, y_test = load_dataset(path_test)
 
-        print("===> Traditional SVM")
-        time_a = datetime.datetime.now()
-        model.fit(X_train, y_train)
-        print("Fit time =", datetime.datetime.now() - time_a)
-        training_score = model.score(X_train, y_train)
-        print("Training accuracy =", training_score)
-        test_score = model.score(X_test, y_test)
-        print("Test accuracy =", test_score)
+            parameters = get_parameters(path_parameters)
+            sec_time, data_sent, global_data_sent = get_execution_info(path_parameters)
 
-    # Real experiment
-    """ experiment = "real_experiment"
+            model = load_parameters(parameters, algorithm, X_train, y_train)
+            print("#############", experiment, "-", n_execution, "#############")
+            print("===> Secure SVM")
+            sec_train_score = model.score(X_train, y_train)
+            sec_test_score = model.score(X_test, y_test)
+            print("Train acc =", sec_train_score)
+            print("Test acc =", sec_test_score)
+
+            print("===> Traditional SVM")
+            time_a = datetime.datetime.now()
+            model.fit(X_train, y_train)
+            clean_time_date = datetime.datetime.now() - time_a
+            clean_time = float(str(clean_time_date.seconds) + "." + str(clean_time_date.microseconds))
+            print("Fit time =", clean_time)
+            clean_train_score = model.score(X_train, y_train)
+            print("Training accuracy =", clean_train_score)
+            clean_test_score = model.score(X_test, y_test)
+            print("Test accuracy =", clean_test_score)
+
+            experiment_results.append(sec_train_score)
+            experiment_results.append(sec_test_score)
+            experiment_results.append(clean_train_score)
+            experiment_results.append(clean_test_score)
+            experiment_results.append(sec_time)
+            experiment_results.append(clean_time)
+            experiment_results.append(data_sent)
+            experiment_results.append(global_data_sent)
+        
+        result_data.append(experiment_results)
+    
+    counter = 0
+    rows_columns_results = []
+    class_sep_results = []
+    for experiment in experiment_list:
+        if experiment.startswith("test_class"):
+            class_sep_results.append(result_data[counter])
+        else:
+            rows_columns_results.append(result_data[counter])
+        counter += 1
+    
+    headers_rows_columns = [
+        "Rows",
+        "Columns",
+        "Class sep",
+    ]
+
+    for i in range(3):
+        headers_rows_columns.append("Train acc sec Ex" + str(i))
+        headers_rows_columns.append("Test acc sec Ex" + str(i))
+        headers_rows_columns.append("Train acc clean Ex" + str(i))
+        headers_rows_columns.append("Test acc clean Ex" + str(i))
+        headers_rows_columns.append("Time sec Ex" + str(i))
+        headers_rows_columns.append("Time clean Ex" + str(i))
+        headers_rows_columns.append("Data sent Ex" + str(i))
+        headers_rows_columns.append("Global data sent Ex" + str(i))
+
+    headers_class_sep = [
+        "Rows",
+        "Columns",
+        "Class sep",
+    ]
+
+    for i in range(10):
+        headers_class_sep.append("Train acc sec Ex" + str(i))
+        headers_class_sep.append("Test acc sec Ex" + str(i))
+        headers_class_sep.append("Train acc clean Ex" + str(i))
+        headers_class_sep.append("Test acc clean Ex" + str(i))
+        headers_class_sep.append("Time sec Ex" + str(i))
+        headers_class_sep.append("Time clean Ex" + str(i))
+        headers_class_sep.append("Data sent Ex" + str(i))
+        headers_class_sep.append("Global data sent Ex" + str(i))
+
+    df_rows_columns = pd.DataFrame(
+        data=np.array(rows_columns_results),
+        columns=headers_rows_columns
+    )
+
+    df_class_sep = pd.DataFrame(
+        data=np.array(class_sep_results),
+        columns=headers_class_sep
+    )
+
+    df_rows_columns.to_csv(config["experiments_path"] + "rows_columns_df.csv")
+    df_class_sep.to_csv(config["experiments_path"] + "class_sep_df.csv")
+    
+    """ # Real experiment
+    experiment = "real_experiment"
     dataset_name = "real_dataset"
         
     path_train = "source/experiments/" + experiment + "/datasets/" + dataset_name + "_train.csv"
