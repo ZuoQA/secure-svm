@@ -83,23 +83,23 @@ if __name__ == "__main__":
     experiment_list = [
         "test-40r-2c",
         "test-50r-2c",
-        "test-60r-2c",
-        "test-70r-2c",
-        "test-80r-2c",
-        "test-90r-2c",
+        # "test-60r-2c",
+        # "test-70r-2c",
+        # "test-80r-2c",
+        # "test-90r-2c",
 
-        "test-100r-2c",
-        "test-100r-3c",
-        "test-100r-4c",
-        "test-100r-5c",
-        "test-100r-6c",
-        "test-100r-7c",
-        "test-100r-8c",
-        "test-100r-9c",
-        "test-100r-10c",
+        # "test-100r-2c",
+        # "test-100r-3c",
+        # "test-100r-4c",
+        # "test-100r-5c",
+        # "test-100r-6c",
+        # "test-100r-7c",
+        # "test-100r-8c",
+        # "test-100r-9c",
+        # "test-100r-10c",
 
-        "test_class_sep_060",
-        "test_class_sep_070",
+        # "test_class_sep_060",
+        # "test_class_sep_070",
         "test_class_sep_080",
         "test_class_sep_090"
     ]
@@ -109,11 +109,7 @@ if __name__ == "__main__":
     result_data = []
     for experiment in experiment_list:
         first_dataset = False
-        experiment_results = [
-            data_experiments[experiment]["n_rows"],
-            data_experiments[experiment]["n_columns"],
-            data_experiments[experiment]["class_sep"]
-        ]
+        
 
         for n_execution in range(data_experiments[experiment]["n_executions"]):
             if not first_dataset or data_experiments[experiment]["change_dataset"]:
@@ -149,71 +145,46 @@ if __name__ == "__main__":
             clean_test_score = model.score(X_test, y_test)
             print("Test accuracy =", clean_test_score)
 
-            experiment_results.append(sec_train_score)
-            experiment_results.append(sec_test_score)
-            experiment_results.append(clean_train_score)
-            experiment_results.append(clean_test_score)
-            experiment_results.append(sec_time)
-            experiment_results.append(clean_time)
-            experiment_results.append(data_sent)
-            experiment_results.append(global_data_sent)
-        
-        result_data.append(experiment_results)
+
+            experiment_results = [
+                data_experiments[experiment]["n_rows"],
+                data_experiments[experiment]["n_columns"],
+                data_experiments[experiment]["class_sep"],
+                n_execution,
+                sec_train_score,
+                sec_test_score,
+                clean_train_score,
+                clean_test_score,
+                sec_time,
+                clean_time,
+                data_sent,
+                global_data_sent
+            ]
+                    
+            result_data.append(experiment_results)
     
-    counter = 0
-    rows_columns_results = []
-    class_sep_results = []
-    for experiment in experiment_list:
-        if experiment.startswith("test_class"):
-            class_sep_results.append(result_data[counter])
-        else:
-            rows_columns_results.append(result_data[counter])
-        counter += 1
-    
-    headers_rows_columns = [
+
+    headers = [
         "Rows",
         "Columns",
         "Class sep",
+        "N execution",
+        "Train acc sec",
+        "Test acc sec",
+        "Train acc clean",
+        "Test acc clean",
+        "Time sec",
+        "Time clean",
+        "Data sent",
+        "Global data sent",
     ]
 
-    for i in range(3):
-        headers_rows_columns.append("Train acc sec Ex" + str(i))
-        headers_rows_columns.append("Test acc sec Ex" + str(i))
-        headers_rows_columns.append("Train acc clean Ex" + str(i))
-        headers_rows_columns.append("Test acc clean Ex" + str(i))
-        headers_rows_columns.append("Time sec Ex" + str(i))
-        headers_rows_columns.append("Time clean Ex" + str(i))
-        headers_rows_columns.append("Data sent Ex" + str(i))
-        headers_rows_columns.append("Global data sent Ex" + str(i))
-
-    headers_class_sep = [
-        "Rows",
-        "Columns",
-        "Class sep",
-    ]
-
-    for i in range(10):
-        headers_class_sep.append("Train acc sec Ex" + str(i))
-        headers_class_sep.append("Test acc sec Ex" + str(i))
-        headers_class_sep.append("Train acc clean Ex" + str(i))
-        headers_class_sep.append("Test acc clean Ex" + str(i))
-        headers_class_sep.append("Time sec Ex" + str(i))
-        headers_class_sep.append("Time clean Ex" + str(i))
-        headers_class_sep.append("Data sent Ex" + str(i))
-        headers_class_sep.append("Global data sent Ex" + str(i))
-
-    df_rows_columns = pd.DataFrame(
-        data=np.array(rows_columns_results),
-        columns=headers_rows_columns
+    df_results = pd.DataFrame(
+        data=np.array(result_data),
+        columns=headers
     )
 
-    df_class_sep = pd.DataFrame(
-        data=np.array(class_sep_results),
-        columns=headers_class_sep
-    )
-
-    df_rows_columns.to_csv(config["experiments_path"] + "rows_columns_df.csv")
-    df_class_sep.to_csv(config["experiments_path"] + "class_sep_df.csv")
+    df_results.to_csv(config["experiments_path"] + "results_repeated.csv")
     
     """ # Real experiment
     experiment = "real_experiment"

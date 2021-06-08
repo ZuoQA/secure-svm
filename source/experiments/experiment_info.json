@@ -164,6 +164,28 @@
         "ring_size": 203
     },
 
+    "test_class_sep_040": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.6,
+        "train_percentage": 0.4,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_050": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.5,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
     "test_class_sep_060": {
         "n_rows": 100,
         "n_columns": 2,
@@ -198,6 +220,28 @@
     },
 
     "test_class_sep_090": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.9,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_100": {
+        "n_rows": 100,
+        "n_columns": 2,
+        "class_sep": 0.8,
+        "train_percentage": 0.5,
+        "n_parties": 4,
+        "n_executions": 10,
+        "change_dataset": true,
+        "ring_size": 168
+    },
+
+    "test_class_sep_110": {
         "n_rows": 100,
         "n_columns": 2,
         "class_sep": 0.9,
