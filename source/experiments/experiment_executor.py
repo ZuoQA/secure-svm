@@ -104,10 +104,14 @@ if __name__ == "__main__":
         # "test-100r-9c",
         # "test-100r-10c",
 
-        "test_class_sep_060",
-        "test_class_sep_070",
-        "test_class_sep_080",
-        "test_class_sep_090"
+        "test_class_sep_040",
+        "test_class_sep_050",
+        # "test_class_sep_060",
+        # "test_class_sep_070",
+        # "test_class_sep_080",
+        # "test_class_sep_090",
+        "test_class_sep_100",
+        "test_class_sep_110"
     ]
 
     for experiment in experiment_list:
