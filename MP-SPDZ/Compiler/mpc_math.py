@@ -619,6 +619,10 @@ def sqrt_simplified_fx(x):
     r = (3 / 2.0) - gh
     h = h * r
     H = 4 * (h * h)
+
+    if not x.round_nearest or (2 * f < k - 1):
+        H = (h < 2 ** (-x.f / 2) / 2).if_else(0, H)
+
     H = H * x
     H = (3) - H
     H = h * H
@@ -800,9 +804,10 @@ def atan(x):
     v_2 =v*v
 
     # range of polynomial coefficients
-    assert x.k - x.f >= 19
-    P = p_eval(p_5102, v_2)
-    Q = p_eval(q_5102, v_2)
+    m = max(sum(p_5102), sum(q_5102))
+    scale = m / (2 ** (x.k - x.f - 1) - 1)
+    P = p_eval([c / scale for c in p_5102], v_2)
+    Q = p_eval([c / scale for c in q_5102], v_2)
 
     # padding
     y = v * (P / Q)

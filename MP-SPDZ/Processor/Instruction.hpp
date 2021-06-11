@@ -166,6 +166,7 @@ void BaseInstruction::parse_operands(istream& s, int pos, int file_pos)
       case NPLAYERS:
       case THRESHOLD:
       case PLAYERID:
+      case CLOSECLIENTCONNECTION:
         r[0]=get_int(s);
         break;
       // instructions with 3 registers + 1 integer operand
@@ -342,7 +343,6 @@ void BaseInstruction::parse_operands(istream& s, int pos, int file_pos)
 
       // write to external client, input is : opcode num_args, client_id, message_type, var1, var2 ...
       case WRITESOCKETC:
-      case WRITESOCKETS:
       case WRITESOCKETSHARE:
       case WRITESOCKETINT:
         num_var_args = get_int(s) - 2;
@@ -350,8 +350,8 @@ void BaseInstruction::parse_operands(istream& s, int pos, int file_pos)
         r[1] = get_int(s);
         get_vector(num_var_args, start, s);
         break;
-      case CONNECTIPV4:
-        throw runtime_error("parties as clients not supported any more");
+      case WRITESOCKETS:
+        throw runtime_error("sending MACs to client not supported any more");
       case READCLIENTPUBLICKEY:
       case INITSECURESOCKET:
       case RESPSECURESOCKET:
@@ -590,6 +590,7 @@ int BaseInstruction::get_reg_type() const
     case SHLCI:
     case SHRCI:
     case CONVINT:
+    case PUBINPUT:
       return CINT;
     default:
       if (is_gf2n_instruction())
@@ -1135,6 +1136,9 @@ inline void Instruction::execute(Processor<sint, sgf2n>& Proc) const
         Proc.write_Ci(r[0], client_handle);
         break;
       }
+      case CLOSECLIENTCONNECTION:
+        Proc.external_clients.close_connection(Proc.read_Ci(r[0]));
+        break;
       case READSOCKETINT:
         Proc.read_socket_ints(Proc.read_Ci(r[0]), start);
         break;
@@ -1145,29 +1149,17 @@ inline void Instruction::execute(Processor<sint, sgf2n>& Proc) const
         // read shares and MAC shares
         Proc.read_socket_private(Proc.read_Ci(r[0]), start, true);
         break;
-      case GREADSOCKETS:
-        //Proc.get_S2_ref(r[0]).get_share().pack(socket_octetstream);
-        //Proc.get_S2_ref(r[0]).get_mac().pack(socket_octetstream);
-        break;
       case WRITESOCKETINT:
-        Proc.write_socket(INT, CLEAR, false, Proc.read_Ci(r[0]), r[1], start);
+        Proc.write_socket(INT, Proc.read_Ci(r[0]), r[1], start);
         break;
       case WRITESOCKETC:
-        Proc.write_socket(MODP, CLEAR, false, Proc.read_Ci(r[0]), r[1], start);
-        break;
-      case WRITESOCKETS:
-        // Send shares + MACs
-        Proc.write_socket(MODP, SECRET, true, Proc.read_Ci(r[0]), r[1], start);
+        Proc.write_socket(CINT, Proc.read_Ci(r[0]), r[1], start);
         break;
       case WRITESOCKETSHARE:
         // Send only shares, no MACs
         // N.B. doesn't make sense to have a corresponding read instruction for this
-        Proc.write_socket(MODP, SECRET, false, Proc.read_Ci(r[0]), r[1], start);
+        Proc.write_socket(SINT, Proc.read_Ci(r[0]), r[1], start);
         break;
-      /*case GWRITESOCKETS:
-        Proc.get_S2_ref(r[0]).get_share().pack(socket_octetstream);
-        Proc.get_S2_ref(r[0]).get_mac().pack(socket_octetstream);
-        break;*/
       case WRITEFILESHARE:
         // Write shares to file system
         Proc.write_shares_to_file(start);
@@ -1177,7 +1169,8 @@ inline void Instruction::execute(Processor<sint, sgf2n>& Proc) const
         Proc.read_shares_from_file(Proc.read_Ci(r[0]), r[1], start);
         break;        
       case PUBINPUT:
-        Proc.get_Ci_ref(r[0]) = Proc.template get_input<IntInput<long>>(
+        Proc.get_Cp_ref(r[0]) = Proc.template
+            get_input<IntInput<typename sint::clear>>(
             Proc.public_input, Proc.public_input_filename, 0).items[0];
         break;
       case RAWOUTPUT:

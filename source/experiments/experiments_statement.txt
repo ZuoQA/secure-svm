@@ -28,6 +28,16 @@ EXPERIMENTOS:
         * Experimentos con datos simples para la primera pregunta. Dataset sintético y comparamos todos métodos.
         * Como se comparan con la versión en limpio con los mismos datos sintéticos del literal anterior.
         * Dimension X: (50, 2)
+
+        Parámetros globales de SMO:
+            lambd = 4
+            tolerance = 1e-7
+            lr = 0.1
+            max_iter = 50
+            kernel_type = "linear"
+
+            sfix.set_precision(45, 92)
+
     Para los parámetros:
         * Cambiamos tamaño del dataset, la complejidad y la naturaleza. Comparando con la versión en limpio. Cambios a una escala fija.
           Usamos dataset con datos sintéticos. 

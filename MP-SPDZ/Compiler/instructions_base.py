@@ -131,7 +131,7 @@ opcodes = dict(
     WRITESOCKETSHARE = 0x6b,
     LISTEN = 0x6c,
     ACCEPTCLIENTCONNECTION = 0x6d,
-    CONNECTIPV4 = 0x6e,
+    CLOSECLIENTCONNECTION = 0x6e,
     READCLIENTPUBLICKEY = 0x6f,
     # Bitwise logic
     ANDC = 0x70,
@@ -903,7 +903,7 @@ class DirectMemoryWriteInstruction(DirectMemoryInstruction, \
                                        WriteMemoryInstruction):
     __slots__ = []
     def __init__(self, *args, **kwargs):
-        if program.curr_tape.prevent_direct_memory_write:
+        if not program.curr_tape.singular:
             raise CompilerError('Direct memory writing prevented in threads')
         super(DirectMemoryWriteInstruction, self).__init__(*args, **kwargs)
 

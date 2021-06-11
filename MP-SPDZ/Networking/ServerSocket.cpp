@@ -6,6 +6,7 @@
 #include <Networking/ServerSocket.h>
 #include <Networking/sockets.h>
 #include "Tools/Exceptions.h"
+#include "Tools/time-func.h"
 
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
@@ -46,10 +47,10 @@ ServerSocket::ServerSocket(int Portnum) : portnum(Portnum), thread(0)
   gethostname((char*)my_name,512);
 
   /* bind serv information to mysocket
-   *   - Just assume it will eventually wake up
    */
   fl=1;
-  while (fl!=0)
+  RunningTimer timer;
+  while (fl!=0 and timer.elapsed() < 600)
     { fl=::bind(main_socket, (struct sockaddr *)&serv, sizeof(struct sockaddr));
       if (fl != 0)
         { cerr << "Binding to socket on " << my_name << ":" << Portnum << " failed, trying again in a second ..." << endl;
@@ -92,19 +93,14 @@ public:
   {
     auto& server_job = *(ServerJob*)(job);
     server_job.server.wait_for_client_id(server_job.socket, server_job.dest);
+    delete &server_job;
+    pthread_detach(pthread_self());
     return 0;
   }
 };
 
 ServerSocket::~ServerSocket()
 {
-  for (auto& job : jobs)
-    {
-      pthread_cancel(job->thread);
-      pthread_join(job->thread, 0);
-      delete job;
-    }
-
   pthread_cancel(thread);
   pthread_join(thread, 0);
   if (close(main_socket)) { error("close(main_socket"); };
@@ -136,6 +132,9 @@ void ServerSocket::accept_clients()
       struct sockaddr dest;
       memset(&dest, 0, sizeof(dest));    /* zero the struct before filling the fields */
       int socksize = sizeof(dest);
+#ifdef DEBUG_NETWORKING
+      fprintf(stderr, "Accepting...\n");
+#endif
       int consocket = accept(main_socket, (struct sockaddr *)&dest, (socklen_t*) &socksize);
       if (consocket<0) { error("set_up_socket:accept"); }
 
@@ -150,8 +149,8 @@ void ServerSocket::accept_clients()
               inet_ntoa(conn.sin_addr), ntohs(conn.sin_port));
 #endif
           // defer to thread
-          jobs.push_back(new ServerJob(*this, consocket, dest));
-          pthread_create(&jobs.back()->thread, 0, ServerJob::run, jobs.back());
+          auto job = (new ServerJob(*this, consocket, dest));
+          pthread_create(&job->thread, 0, ServerJob::run, job);
         }
 
 #ifdef __APPLE__
@@ -229,4 +228,9 @@ int AnonymousServerSocket::get_connection_socket(int& client_id)
   int client_socket = clients[client_id];
   data_signal.unlock();
   return client_socket;
+}
+
+void AnonymousServerSocket::remove_client(int client_id)
+{
+  clients.erase(client_id);
 }

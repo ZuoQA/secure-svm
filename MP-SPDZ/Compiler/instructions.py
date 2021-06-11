@@ -1512,13 +1512,13 @@ class cond_print_str(base.IOInstruction):
 
 @base.vectorize
 class pubinput(base.PublicFileIOInstruction):
-    """ Store public input in clear integer register (vector).
+    """ Store public input in clear register (vector).
 
-    :param: destination (regint)
+    :param: destination (cint)
     """
     __slots__ = []
     code = base.opcodes['PUBINPUT']
-    arg_format = ['ciw']
+    arg_format = ['cw']
 
 @base.vectorize
 class readsocketc(base.IOInstruction):
@@ -1578,19 +1578,6 @@ class writesocketc(base.IOInstruction):
         return True
 
 @base.vectorize
-class writesockets(base.IOInstruction):
-    """
-    Write a variable number of secret shares + MACs from registers into a socket
-    for a specified client id, message_type
-    """
-    __slots__ = []
-    code = base.opcodes['WRITESOCKETS']
-    arg_format = tools.chain(['ci', 'int'], itertools.repeat('s'))
-
-    def has_var_args(self):
-        return True
-
-@base.vectorize
 class writesocketshare(base.IOInstruction):
     """ Write a variable number of shares (without MACs) from secret
     registers into socket for a specified client id.
@@ -1640,6 +1627,15 @@ class acceptclientconnection(base.IOInstruction):
     __slots__ = []
     code = base.opcodes['ACCEPTCLIENTCONNECTION']
     arg_format = ['ciw', 'int']
+
+class closeclientconnection(base.IOInstruction):
+    """ Close connection to client.
+
+    :param: client id (regint)
+    """
+    __slots__ = []
+    code = base.opcodes['CLOSECLIENTCONNECTION']
+    arg_format = ['ci']
 
 class writesharestofile(base.IOInstruction):
     """ Write shares to ``Persistence/Transactions-P<playerno>.data``
