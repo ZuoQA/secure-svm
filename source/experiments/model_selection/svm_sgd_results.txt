@@ -1,13 +1,9 @@
-Ring size = 256
-Weights:
-[1.01242]
-[0.613067]
-[0.220155]
+[1.054]
+[0.464097]
+[0.548111]
 ----------------
 Accuracy:
-0.82
-Time = 2.71739 seconds 
-Data sent = 94.5128 MB
-Global data sent = 254.597 MB
-
-Compiled 9500000 lines at Fri May 21 13:55:22 2021
+0.84
+Time = 1.72213 seconds 
+Data sent = 62.1633 MB
+Global data sent = 167.456 MB

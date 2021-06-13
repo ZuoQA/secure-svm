@@ -1,9 +1,9 @@
-Ring size = 256
+Trying to run 149-bit computation
 X shape = 50, 2
 y shape = 50, 1
 Weights:
-[2.3127]
-[-0.0695877]
+[2.28598]
+[-0.0679941]
 ----------------
 Alphas:
 [0]
@@ -25,7 +25,7 @@ Alphas:
 [0]
 [0]
 [0]
-[0.889374]
+[0.0767488]
 [4]
 [0]
 [0]
@@ -35,7 +35,7 @@ Alphas:
 [0]
 [0]
 [0]
-[1.0341]
+[1.62071]
 [0]
 [0]
 [0]
@@ -48,20 +48,18 @@ Alphas:
 [0]
 [0]
 [0]
-[0.144723]
+[0.917703]
 [0]
-[4]
+[3.37374]
 [0]
 [0]
 [0]
 [0]
 [0]
 ----------------
-b = 0.328887
+b = 0.337876
 Accuracy:
-0.98
-Time = 476.062 seconds 
-Data sent = 12524 MB
-Global data sent = 34697.9 MB
-
-Compiled 400000 lines at Fri May 21 12:26:07 2021
+0.980002
+Time = 40.4294 seconds 
+Data sent = 851.113 MB
+Global data sent = 2351.82 MB

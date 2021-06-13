@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 
-sfix.set_precision(45, 90)
+sfix.set_precision(20, 67)
 
 
 # SGD parameters
@@ -368,7 +368,7 @@ for row in range(n_party_3):
 print_ln("X shape = %s, %s", len(X), len(X[0]))
 print_ln("y shape = %s, %s", len(y), len(y[0]))
 
-W, b, alphas = fit(X, y, max_passes=100)
+W, b, alphas = fit(X, y, max_passes=50)
 
 print_ln("Weights:")
 show_matrix(W)

@@ -1,7 +1,7 @@
 import random
 
 
-sfix.set_precision(45, 90)
+sfix.set_precision(20, 67)
 
 # SGD parameters
 lr = 0.01
@@ -22,7 +22,7 @@ def negative(X):
     return neg_X
 
 
-def fit(X, y, epochs=100):
+def fit(X, y, epochs=50):
     '''
     Method for SVM fitting
     '''
@@ -166,7 +166,7 @@ for row in range(n_party_2):
 for row in range(n_party_3):
     y[row + n_party_0 + n_party_1 + n_party_2][0] = sfix.get_input_from(3)
 
-W_results = fit(X, y, epochs=10)
+W_results = fit(X, y, epochs=50)
 
 print_ln("Weights:")
 show_matrix(W_results)

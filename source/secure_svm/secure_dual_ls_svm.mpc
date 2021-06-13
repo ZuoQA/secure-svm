@@ -2,7 +2,7 @@ import numpy as np
 import math
 import mpc_math
 
-sfix.set_precision(20, 65)
+sfix.set_precision(20, 67)
 
 # SGD parameters
 lambd = 4
