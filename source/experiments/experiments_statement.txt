@@ -77,15 +77,15 @@ EXPERIMENTOS:
         * Usamos dataset real. Usar kernels distintos.
 
         Parámetros globales:
-            lambd = 8
+            lambd = 2
             tolerance = 1e-7
             lr = 1e-2
             max_iter = 80
-            kernel_type = "linear"
+            kernel_type = "poly"
+            degree = 3
 
-        Los datos tienen una dimensión de:
-            n = 150
-            c = 10
+        Los datos tienen una dimensión de: (151, 14)
 
         Se usó una precisión de 32 bits para la parte fraccionaria, por tanto se usa
-            sfix.set_precision(32, 104)
+            sfix.set_precision(32, 107)
+            Ring size = 237
