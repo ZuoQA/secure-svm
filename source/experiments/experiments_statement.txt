@@ -51,8 +51,7 @@ EXPERIMENTOS:
             kernel_type = "linear"
 
         Precision:
-            * En el experimento de la dificultad de los dataset, se usó sfix.set_precision(20, 74) - Ring size: 168
-                Dimension X: (100, 2)  
+             
             * En el experimento de cambio de filas:
                 - 40F-2C se usó sfix.set_precision(20, 65) - Ring size = 144
                 - 50F-2C se usó sfix.set_precision(20, 67) - Ring size = 149
@@ -71,6 +70,8 @@ EXPERIMENTOS:
                 - 100F-8C se usó sfix.set_precision(20, 86) - Ring size = 198
                 - 100F-9C se usó sfix.set_precision(20, 87) - Ring size = 199
                 - 100F-10C se usó sfix.set_precision(20, 88) - Ring size = 203
+            * En el experimento de la dificultad de los dataset, se usó sfix.set_precision(20, 74) - Ring size: 168
+                Dimension X: (100, 2)   
 
     Para la viabilidad:
         * Usamos dataset real. Usar kernels distintos.

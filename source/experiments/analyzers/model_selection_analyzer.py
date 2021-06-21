@@ -53,8 +53,8 @@ def get_parameters(path_parameters):
     return parameters
 
 if __name__ == "__main__":
-    algorithm = "sgd"
-    path_parameters = "source/experiments/model_selection/svm_sgd_parameters.txt"
+    algorithm = "ls"
+    path_parameters = "source/experiments/model_selection/svm_ls_parameters.txt"
     path_train = "source/experiments/model_selection/datasets/toy_dataset_train.csv"
     path_test = "source/experiments/model_selection/datasets/toy_dataset_test.csv"
             
