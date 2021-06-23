@@ -78,7 +78,7 @@ EXPERIMENTOS:
 
         Parámetros globales:
             lambd = 2
-            tolerance = 1e-7
+            tolerance = 1e-4
             lr = 1e-2
             max_iter = 80
             kernel_type = "poly"
