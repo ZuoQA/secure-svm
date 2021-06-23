@@ -84,8 +84,8 @@ EXPERIMENTOS:
             kernel_type = "linear"
 
         Los datos tienen una dimensión de:
-            n = 150
-            c = 10
+            n = 151
+            c = 14
 
         Se usó una precisión de 32 bits para la parte fraccionaria, por tanto se usa
             sfix.set_precision(32, 104)
