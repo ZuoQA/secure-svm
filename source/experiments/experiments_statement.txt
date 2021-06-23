@@ -84,8 +84,8 @@ EXPERIMENTOS:
             kernel_type = "poly"
             degree = 3
 
-        Los datos tienen una dimensión de: (151, 14)
+        Los datos tienen una dimensión de: (212, 14)
 
         Se usó una precisión de 32 bits para la parte fraccionaria, por tanto se usa
-            sfix.set_precision(32, 107)
-            Ring size = 237
+            sfix.set_precision(32, 110)
+            Ring size = 246
